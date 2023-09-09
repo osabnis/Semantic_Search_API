@@ -1,48 +1,53 @@
-# DoDoDFS-AnEmulatedDistributedFileSystem
-The code for the DSCI-551 project
+# Semantic Search API
+A FastAPI-based Semantic Search API to analyze users' health queries and extract answers from USC's health website!
 
-## Project Title: DODO DFS - Distributed File System with Map-Reduce Paradigm
+### Overview:
+SEMSE is an innovative application designed to serve as a multi-lingual semantic search engine for websites. Unlike traditional semantic search engines that require extensive data labeling and training, SEMSE offers an automated pipeline that can create a semantic search engine for any given website without human intervention. This project leverages cutting-edge language models and indexing techniques to streamline the process, making it efficient and user-friendly.
 
-### Project Background: 
-The project aims to help students learn about mutual funds and investment. It involves creating a search application using existing data on mutual funds' past performance to assist users in making informed investment decisions.
+### Key Features:
 
-### Implementation Details:
-#### Data Cleaning and Augmentation: 
-Utilized a Kaggle dataset on mutual fund performance and enhanced it using public APIs to fill in missing data and gather additional information.
+#### Block Diagram of the Project:
+![Alt text](https://github.com/osabnis/Semantic_Search_API/blob/main/graphs__and_statistics/block_diagram.drawio.png "Block Diagram")
 
-#### Storing Dataset: 
-Developed an Emulated Distributed File System (EDFS) where users can upload datasets using the PUT command. Files are partitioned by rows for efficient processing.
+#### Content Extraction: 
+SEMSE extracts and cleans content from websites, creating a corpus of text for indexing. This ensures that the main content is extracted while ignoring repetitive headers and footers.
 
-#### Emulating DFS: 
-The EDFS follows a 3-cluster system and emulates the NameNode on Firebase to manage configurations, directory structures, and file-cluster mappings.
+#### Language Agnostic Model: 
+The project utilizes the Language Agnostic SEntence Representations (LASER) model by Facebook, which supports 93 different languages. LASER's unique feature is its ability to embed multiple languages into a shared space, making it suitable for English, Hindi, and Spanish without the need for fine-tuning.
 
-#### Task 1 - HDFS Commands:
-Implemented various HDFS commands including help, displayconfig, updateconfig, mkdir, ls, cat, rm, put, getPartitionLocations, and readPartition. These commands allow users to interact with and manage their files within the EDFS.
+#### Indexing: 
+SEMSE converts processed web content into a semantic index, using FAISS to efficiently store and retrieve embeddings. This ensures fast and accurate search results.
 
-#### Task 2 - Map-Reduce Paradigm:
-Two additional functions, query-mode() and spec-ops(), were implemented:
-- query-mode() enables users to query CSV-based datasets within the EDFS, providing insights into how map-reduce works.
-- spec-ops() offers five interesting insights from the mutual funds dataset, such as top equity-based funds and highest-returning funds.
+#### Similarity Metric: 
+The project uses cosine similarity as the primary measure of similarity to find content related to user queries. This approach is ideal for returning content similar to the query, rather than entire paragraphs.
 
-#### Task 3 - UI for the DFS:
-Developed a user-friendly terminal-based UI that provides information about the EDFS, its capabilities, and available commands. The UI includes error handling for a smooth user experience.
+#### Training:
+We wanted to use the model without training to see the results without the need for any training. However, we did try to fine-tune the model for around 50 iterations on the extracted data from the website using AWS resources provided to us by the University.  
+The training graph is shown below:
+![Alt text](https://github.com/osabnis/Semantic_Search_API/blob/main/graphs__and_statistics/laser_training.PNG "Block Diagram")
 
-#### Learning Experiences:
-The project provided valuable learning experiences in distributed systems, the map-reduce paradigm, data storage technologies (MongoDB and Firebase), and UI building. It enabled the understanding of complex concepts and practical application.
+#### Runtime Process: 
+SEMSE's real-time application takes user queries, preprocesses them, encodes them using LASER, and retrieves the most similar content from the semantic index. It then returns the content, the source webpage, and the similarity score.
+
+#### Evaluation:
+SEMSE's performance is evaluated using a dataset of user queries related to a student health website. The top-3 accuracy metric is used to assess the model's performance in comparison to other models, including Multilingual BERT and XLM-Roberta, in both zero-shot and fine-tuned scenarios. SEMSE achieves impressive results in a zero-shot scenario, outperforming keyword-based search. Even after fine-tuning, it remains competitive with fine-tuned models.  
+##### Comparison of the results:
+Zero-Shot Performance:
+
+Fine-Tuned Performance:
+
+
+#### Conclusion:
+SEMSE presents a significant achievement in the world of unsupervised semantic search engines. It achieves a top-3 accuracy of 81.82% in a zero-shot scenario and remains competitive after fine-tuning. Unlike other models, SEMSE does not require extensive training and can be easily regenerated when new content is added to the website. It offers a powerful and user-friendly solution for enhancing search capabilities on websites.  
+##### Performance of SEMSE in English against m-BERT and XLM-R in English:  
+![Alt text](https://github.com/osabnis/Semantic_Search_API/blob/main/graphs__and_statistics/top-3-accuracy-graph-english.png "Block Diagram")  
+##### Performance of SEMSE in English against m-BERT and XLM-R in Hindi:  
+![Alt text](https://github.com/osabnis/Semantic_Search_API/blob/main/graphs__and_statistics/top-3-accuracy-graph-hindi.png "Block Diagram")  
+##### Performance of SEMSE in English against m-BERT and XLM-R in Spanish:  
+![Alt text](https://github.com/osabnis/Semantic_Search_API/blob/main/graphs__and_statistics/top-3-accuracy-graph-spanish.png "Block Diagram")  
 
 ### How to run this?
 Make the following changes to be able to run this code for yourself!
 - Create an environment with the requirements file provided.
-- Edit the "launch-dodfs.bat" file by changing the environment path and the path to the main.py file.
-- You should be good to go!
-
-### Links:
-Video: https://www.youtube.com/watch?v=XKMGEDI8xNg  
-For more details, please refer to the provided links to the videos!
-
-
-
-
-
-
-Regenerate
+- Run the main.py file using this environment.
+- You should be good to go - with the API being visible at the 8000 port on LocalHost!
