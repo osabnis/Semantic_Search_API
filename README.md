@@ -22,9 +22,7 @@ SEMSE converts processed web content into a semantic index, using FAISS to effic
 The project uses cosine similarity as the primary measure of similarity to find content related to user queries. This approach is ideal for returning content similar to the query, rather than entire paragraphs.
 
 #### Training:
-We wanted to use the model without training to see the results without the need for any training. However, we did try to fine-tune the model for around 50 iterations on the extracted data from the website using AWS resources provided to us by the University.  
-The training graph is shown below:
-![Alt text](https://github.com/osabnis/Semantic_Search_API/blob/main/graphs__and_statistics/laser_training.PNG "Block Diagram")
+We saw that our model did well in the zero-shot scenario. However, we tried to fine-tune the other models for around 50 iterations on the extracted data from the website using AWS resources provided to us by the University. This was so that we could compare the true performance of these models with our language-agnostic model.  
 
 #### Runtime Process: 
 SEMSE's real-time application takes user queries, preprocesses them, encodes them using LASER, and retrieves the most similar content from the semantic index. It then returns the content, the source webpage, and the similarity score.
@@ -32,10 +30,10 @@ SEMSE's real-time application takes user queries, preprocesses them, encodes the
 #### Evaluation:
 SEMSE's performance is evaluated using a dataset of user queries related to a student health website. The top-3 accuracy metric is used to assess the model's performance in comparison to other models, including Multilingual BERT and XLM-Roberta, in both zero-shot and fine-tuned scenarios. SEMSE achieves impressive results in a zero-shot scenario, outperforming keyword-based search. Even after fine-tuning, it remains competitive with fine-tuned models.  
 ##### Comparison of the results:
-Zero-Shot Performance:
-
-Fine-Tuned Performance:
-
+Zero-Shot Performance:  
+![Alt text](https://github.com/osabnis/Semantic_Search_API/blob/main/graphs__and_statistics/zero-shot_performance.jpg "Block Diagram")  
+Fine-Tuned Performance:  
+![Alt text](https://github.com/osabnis/Semantic_Search_API/blob/main/graphs__and_statistics/fine-tuned_performance.jpg "Block Diagram")  
 
 #### Conclusion:
 SEMSE presents a significant achievement in the world of unsupervised semantic search engines. It achieves a top-3 accuracy of 81.82% in a zero-shot scenario and remains competitive after fine-tuning. Unlike other models, SEMSE does not require extensive training and can be easily regenerated when new content is added to the website. It offers a powerful and user-friendly solution for enhancing search capabilities on websites.  
